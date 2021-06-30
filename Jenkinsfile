@@ -8,7 +8,7 @@ pipeline {
         
         stage ('Initialize') {
             steps {
-                sh '''
+                bat '''
                     echo "PATH = ${PATH}"
                     echo "maven_ = ${M2_HOME}"
                 '''
@@ -18,14 +18,14 @@ pipeline {
         
          stage ('Build') {
             steps {
-                sh 'mvn clean package' 
+                bat 'mvn clean package' 
             }
          }
 
         stage ('Testing Stage') {
 
             steps {
-                    sh 'mvn test'
+                    bat 'mvn test'
                 
             }
         }
@@ -33,7 +33,7 @@ pipeline {
 
         stage ('Deployment Stage') {
             steps {
-                    sh 'mvn deploy'
+                    bat 'mvn deploy'
                 
             }
         }
