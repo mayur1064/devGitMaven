@@ -1,31 +1,39 @@
 pipeline {
     agent any
+    tools {
+        maven 'Maven 3.3.9'
+    }
 
     stages {
-        stage ('Compile Stage') {
-
+        
+        stage ('Initialize') {
             steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn clean compile'
-                }
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "maven_ = ${M2_HOME}"
+                '''
             }
         }
+        
+        
+         stage ('Build') {
+            steps {
+                sh 'mvn clean package' 
+            }
 
         stage ('Testing Stage') {
 
             steps {
-                withMaven(maven : 'maven_3_5_0') {
                     sh 'mvn test'
-                }
+                
             }
         }
 
 
         stage ('Deployment Stage') {
             steps {
-                withMaven(maven : 'maven_3_5_0') {
                     sh 'mvn deploy'
-                }
+                
             }
         }
     }
